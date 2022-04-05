@@ -7,8 +7,8 @@ const conn={
     database:'test'
 };
 
-//var connection=mysql.createConnection(conn);
-//connection.connect();
+// var connection=mysql.createConnection(conn);
+// connection.connect();
 
 // connection.query("select * from tost",(err,raws,fields)=>{
 //     console.log(raws);

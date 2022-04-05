@@ -11,4 +11,11 @@ const user=require('./users.js')
 // router.use('/account',account);
 // router.use('/users',user);
 
+router.all('/',(req,res)=>{
+    res.json({
+        "status":res.statusCode,
+        "msg":"welcometo crud api server"
+    })
+})
+
 module.exports = router;

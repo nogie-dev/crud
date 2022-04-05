@@ -28,5 +28,10 @@ module.exports={
             else console.log('query success')
         })
         //conn.end();
+    },
+
+    getBoardList:function(){
+        let test=conn.query("select * from board")
+        console.log(test)
     }
 }
