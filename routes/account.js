@@ -1,7 +1,5 @@
 var express = require('express');
-var db=require('../db/db')
 const query=require('../db/query')
-const conn=db.init()
 var router = express.Router();
 
 // default
