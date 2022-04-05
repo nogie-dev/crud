@@ -30,8 +30,19 @@ module.exports={
         //conn.end();
     },
 
-    getBoardList:function(){
-        let test=conn.query("select * from board")
-        console.log(test)
+    getBoardList:async function(){
+        let [rows,field]=await conn.then((connection)=>connection.execute("select * from board"));
+        return rows
+    },
+
+    createBoard:async function(name,title,context){
+        try{
+            let [rows,field]=await conn.then((connection)=>connection.query("insert into board(name,title,context) values(?,?,?)",[name,title,context]))
+            //return rows; 현재 필요 없음
+            return {"status":"200", "msg":"success appended content"}
+        }catch(error){
+            return {"status":"400","msg":"bad request"}
+        }
+        //.catch((error)=>console.log(error));
     }
 }
