@@ -9,9 +9,13 @@ router.get('/',(req,res)=>{
     })
 })
 
-// router.get('/:no',(req,res)=>{
-
-// })
+router.get('/:no',(req,res)=>{
+    const number=req.params.no
+    query.detailViewBoard(number)
+    .then((queryRes)=>{
+        res.json(queryRes)
+    })
+})
 
 router.post('/',(req,res)=>{
     const {name,title,context}=req.body //req.body 의 key값과 변수의 이름이 동일해야 함
@@ -22,12 +26,21 @@ router.post('/',(req,res)=>{
     //res.json({name,title,context})
 })
 
-// router.patch('/:no',(req,res)=>{
+router.patch('/:no',(req,res)=>{
+    const number=req.params.no
+    const {name,title,context}=req.body
+    query.updateBoard(number,name,title,context)
+    .then((queryRes)=>{
+        res.json(queryRes)
+    })
+})
 
-// })
-
-// router.delete('/:no',(req,res)=>{
-
-// })
+router.delete('/:no',(req,res)=>{
+    const number=req.params.no
+    query.deleteBoard(number)
+    .then((queryRes)=>{
+        res.json(queryRes)
+    })
+})
 
 module.exports = router;
