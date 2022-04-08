@@ -10,6 +10,9 @@ const user=require('./users.js')
 // default
 // router.use('/account',account);
 // router.use('/users',user);
+router.get('/',function(req,res){
+    res.render('test.ejs')
+})
 
 router.all('/',(req,res)=>{
     res.json({

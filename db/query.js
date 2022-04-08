@@ -30,7 +30,7 @@ module.exports={
         //conn.end();
     },
 
-    getBoardList:async function(){
+    getBoardList:async function(){ //이 부분 예외처리 아직 안됨
         let [rows,field]=await conn.then((connection)=>connection.execute("select * from board"));
         return rows
     },

@@ -3,7 +3,7 @@ const query=require('../db/query')
 var router = express.Router();
 
 // default
-router.post('/', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.json({
     status:400,
     message:'bad request'

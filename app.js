@@ -19,6 +19,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+//<<<<<<< Updated upstream(내가 변경한 내용)
 //app.use('/account',express.static(path.join(__dirname, 'public')));
 console.log(__dirname);
 
@@ -26,6 +27,7 @@ app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 // app.use("/account", accountRouter);
 app.use("/board", boardRouter);
+//=======
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
