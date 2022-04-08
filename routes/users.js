@@ -1,9 +1,13 @@
 var express = require('express');
+const query=require('../db/query')
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.render('test.ejs');
+router.post('/register', function(req, res, next) {
+  let {id,password,nickname}=req.body
+  query.userRegister(id,password,nickname)
+  .then((queryRes)=>{
+    res.json(queryRes)
+  })
 });
 
 module.exports = router;
