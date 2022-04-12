@@ -1,12 +1,28 @@
 var express = require('express');
 const query=require('../db/query')
+const session=require('../pending/session_test')
+const redisControl=require('../db/redis_test')
 var router = express.Router();
 
-router.get('/',(req,res)=>{
-    query.getBoardList()
-    .then((queryRes)=>{
-        res.json(queryRes)
-    })
+const user =new session.userSession("false")
+
+router.get('/',async (req,res)=>{
+    const sessionKey=req.cookies.session
+    const sessionJudge=await redisControl.existKeyChekcer(sessionKey)
+    if (sessionJudge==1){
+        user.changeToTrue()
+    }else{
+        user.changeToFalse()
+    }
+
+    if(user.sessionAuth==true){
+        query.getBoardList()
+        .then((queryRes)=>{
+            res.json(queryRes)
+        })
+    }else{
+        res.json({"msg":"unauthorized user"})
+    }
 })
 
 router.get('/:no',(req,res)=>{
