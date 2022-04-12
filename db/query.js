@@ -52,6 +52,20 @@ module.exports={
         }
     },
 
+    userLogin:async function(id,password){
+        try{
+           let judge=false
+           let [rows,fields] = await conn.then((connection)=>connection.query("select id,password from users where id=? and password=?",[id,password]))
+           
+           if(rows[0]){judge=true}
+           return judge
+           //console.log(rows)
+        }catch(error){
+            console.log(error)
+            return {"status":"400","msg":"bad request"}
+        }
+    },
+
     getBoardList:async function(){
         try{
             let [rows,field]=await conn.then((connection)=>connection.query("select * from board"));
