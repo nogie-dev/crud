@@ -1,4 +1,4 @@
-var db=require('./db')
+var db=require('./mysql_db')
 const conn=db.init()
 
 module.exports={
