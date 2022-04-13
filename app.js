@@ -3,11 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-//var accountRouter=require('./routes/account.js');
 var boardRouter=require('./routes/board.js');
+const { transformArguments } = require('@node-redis/search/dist/commands/AGGREGATE');
+//var accountRouter=require('./routes/account.js');
 
 var app = express();
 
@@ -19,15 +21,20 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//<<<<<<< Updated upstream(내가 변경한 내용)
+app.use(session({
+  secret:'test',
+  resave:false,
+  saveUninitialized: true,
+  cookie: {secure: false}
+}))
+
 //app.use('/account',express.static(path.join(__dirname, 'public')));
 console.log(__dirname);
 
 app.use('/', indexRouter);
-// app.use("/account", accountRouter);
 app.use("/board", boardRouter);
 app.use("/users", usersRouter);
-//=======
+// app.use("/account", accountRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,7 +49,8 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({"status":"500", "msg":"Server Side Error"})
+  //res.render('error');
 });
 
 module.exports = app;
