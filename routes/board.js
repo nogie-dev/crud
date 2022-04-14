@@ -6,6 +6,7 @@ router.get('/',(req,res)=>{
     if(!req.session.user){
         res.json({"status":"401","msg":"Unauthorized"})
     }else{
+        //console.log(req.sessionID)
         query.getBoardList()
         .then((queryRes)=>{
             res.json(queryRes)
