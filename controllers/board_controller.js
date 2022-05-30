@@ -1,67 +1,63 @@
-var express = require('express');
-const query=require('../db/mysql_query')
-var router = express.Router();
+const Users=require('../models/user')
 
-router.get('/',(req,res)=>{
+exports.getBoardlist=function(req,res){
     if(!req.session.user){
         res.json({"status":"401","msg":"Unauthorized"})
     }else{
         //console.log(req.sessionID)
-        query.getBoardList()
-        .then((queryRes)=>{
-            res.json(queryRes)
+        Users.getBoardList()
+        .then((result)=>{
+            res.json(result)
         })
     }
-})
+}
 
-router.get('/:no',(req,res)=>{
+exports.getDetailView=function(req,res){
     if(!req.session.user){
         res.json({"status":"401","msg":"Unauthorized"})
     }else{
         const number=req.params.no
-        query.detailViewBoard(number)
-        .then((queryRes)=>{
-            res.json(queryRes)
+        Users.detailViewBoard(number)
+        .then((result)=>{
+            res.json(result)
         })
     }
-})
+}
 
-router.post('/',(req,res)=>{
+exports.doCreateContent=function(req,res){
     if(!req.session.user){
         res.json({"status":"401","msg":"Unauthorized"})
     }else{
         const {name,title,context}=req.body //req.body 의 key값과 변수의 이름이 동일해야 함
-        query.createBoard(name,title,context)
-        .then((queryRes)=>{
-            res.json(queryRes)
+        Users.createBoard(name,title,context)
+        .then((result)=>{
+            res.json(result)
         })
         //res.json({name,title,context})
     }
-})
+}
 
-router.patch('/:no',(req,res)=>{
+exports.doUpdateContent=function(req,res){
     if(!req.session.user){
         res.json({"status":"401","msg":"Unauthorized"})
     }else{
         const number=req.params.no
         const {name,title,context}=req.body
-        query.updateBoard(number,name,title,context)
-        .then((queryRes)=>{
-            res.json(queryRes)
+        Users.updateBoard(number,name,title,context)
+        .then((result)=>{
+            res.json(result)
         })
     }
-})
+}
 
-router.delete('/:no',(req,res)=>{
+exports.doDeleteContent=function(req,res){
     if(!req.session.user){
         res.json({"status":"401","msg":"Unauthorized"})
     }else{
         const number=req.params.no
-        query.deleteBoard(number)
-        .then((queryRes)=>{
-            res.json(queryRes)
+        Users.deleteBoard(number)
+        .then((result)=>{
+            res.json(result)
         })
     }
-})
-
-module.exports = router;
+}

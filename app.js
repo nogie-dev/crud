@@ -5,11 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var boardRouter=require('./routes/board.js');
-const { transformArguments } = require('@node-redis/search/dist/commands/AGGREGATE');
-//var accountRouter=require('./routes/account.js');
+var routes = require('./routes/routes');
 
 var app = express();
 
@@ -28,13 +24,7 @@ app.use(session({
   cookie: {secure: false}
 }))
 
-//app.use('/account',express.static(path.join(__dirname, 'public')));
-console.log(__dirname);
-
-app.use('/', indexRouter);
-app.use("/board", boardRouter);
-app.use("/users", usersRouter);
-// app.use("/account", accountRouter);
+app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
