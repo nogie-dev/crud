@@ -1,5 +1,5 @@
 const mysql=require('mysql2/promise')
-const conn={
+const master={
     host:'127.0.0.1',
     port:'3306',
     user:'root',
@@ -7,24 +7,19 @@ const conn={
     database:'test'
 };
 
-// const testFunc=async()=>{
-
-//     var connection=await mysql.createConnection(conn);
-//     connection.connect();
-
-//     let[rows,field]=await connection.execute("select * from board");
-
-//     connection.end();
-// }
+const slave={
+    host:'127.0.0.1',
+    port:'3307',
+    user:'root',
+    password:'root',
+    database:'test'
+};
 
 module.exports={
-    init:async function(){
-        return await mysql.createConnection(conn);
+    init_master:async function(){
+        return await mysql.createConnection(master).then(res=>res);
     },
-    connect:function(conn){
-        conn.connect(function(err){
-            if(err) console.log('err')
-            else console.log('connection success') 
-        });
+    init_slave:async function(){
+        return await mysql.createConnection(slave).then(res=>res);
     }
 };

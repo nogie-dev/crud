@@ -1,4 +1,4 @@
-FROM node:16.13
+FROM <yourimage>
 
 LABEL maintainer "nogie<layer7@kakao.com>"
 LABEL "purpose"="devEnviroment"
@@ -10,7 +10,8 @@ RUN mkdir /working
 
 WORKDIR /working
 
-#COPY ./ /working/
-#CMD npm install
+#-v 이용해서 알아서 마운팅
+COPY ./ /working/
+CMD npm install
 
 EXPOSE 3000
